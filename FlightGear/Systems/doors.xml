@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<PropertyList>
+<filter>
+  <type>noise-spike</type>
+  <max-rate-of-change>0.05</max-rate-of-change>
+  <input>
+    <condition>
+      <property>/controls/doors/cargo-ramp/trigger-up</property>
+    </condition>
+    <value>-0.366</value>
+  </input>
+  <input>
+    <condition>
+      <property>/controls/doors/cargo-ramp/trigger-down</property>
+    </condition>
+    <value>0.262</value>
+  </input>
+  <!-- Hold position if no switch is triggered -->
+  <input>/controls/doors/cargo-ramp/position</input>
+  <output>/controls/doors/cargo-ramp/position</output>
+</filter>
+
+<filter>
+  <type>noise-spike</type>
+  <max-rate-of-change>999</max-rate-of-change>
+  <input>
+    <expression>
+      <dif>
+        <value> 34.6 </value>
+        <prod>
+          <sin>
+            <sum>
+              <property>/controls/doors/cargo-ramp/position</property>
+              <value>0.076</value>
+            </sum>
+          </sin>
+          <value> 134.2 </value>
+        </prod>
+      </dif>
+    </expression>
+  </input>
+  <output>/fdm/jsbsim/contact/unit[6]/z-position</output>
+  <output>/fdm/jsbsim/contact/unit[7]/z-position</output>
+</filter>
+
+<filter>
+  <type>noise-spike</type>
+  <max-rate-of-change>0.2</max-rate-of-change>
+  <input>/controls/doors/crew-door/target</input>
+  <output>/controls/doors/crew-door/position</output>
+</filter>
+
+</PropertyList>
