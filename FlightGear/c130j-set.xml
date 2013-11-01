@@ -72,13 +72,12 @@
   </instrumentation>
   
   <systems>
+    <path>Systems/systems.xml</path>
     <property-rule n="100">
       <path>Systems/doors.xml</path>
       <update-interval-secs type="double">0.04</update-interval-secs>
     </property-rule>
   </systems>
-  
-  
 </sim>
 
 <input>
@@ -174,6 +173,7 @@
   <systems>
     <file>Nasal/screen.nas</file>
     <file>Nasal/amu.nas</file>
+    <file>Nasal/apu.nas</file>
     <file>Nasal/cdmu.nas</file>
     <file>Nasal/fuel-system.nas</file>
     <file>Nasal/hud.nas</file>
