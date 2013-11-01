@@ -1,4 +1,15 @@
 # ==============================================================================
+# Navigation helpers
+# ==============================================================================
+
+# ADF
+#
+# /instrumentation/adf[i]/mode = "adf"
+# /instrumentation/adf[i]/ident
+# /instrumentation/adf[i]/in-range
+# /instrumentation/adf[i]/indicated-bearing-deg
+
+# ==============================================================================
 # Crew alerting system
 # ==============================================================================
 var CAS =
@@ -30,7 +41,7 @@ var CAS =
 	  # and load new ones
 		me.file = file == nil ? me.file : file;
     var messages = io.read_properties(me.file).getChildren("message");
-    
+
     foreach(var message; messages)
 		{
 			var type = message.getNode("type", 1).getValue();
@@ -39,7 +50,7 @@ var CAS =
 			  debug.warn("Unknown message type: " ~ type);
 			  continue;
 			}
-			
+
 			append
 			(
 			  me._msg[type],
@@ -67,7 +78,7 @@ var CAS =
 					if( msg.line != cur_line )
 					{
 					  msg.line = cur_line;
-					  
+
 					  if( !msg.active )
 					  {
 					    print(msg.text);
@@ -75,7 +86,7 @@ var CAS =
 					    setprop("sim/sound/cas-msg-status", 0);
 					    setprop("sim/sound/cas-msg-status", 1);
 					  }
-					  
+
 					  if( msg.active > 1 )
 					  {
 					    me.lines[cur_line].setColorFill(color)
@@ -92,20 +103,20 @@ var CAS =
 					    me.lines[cur_line].setColor(color)
 					                      .setDrawMode(canvas.Text.TEXT);
 					  }
-					  
+
 					  me.lines[cur_line].setText(msg.text)
 					                    .show()
                               .update();
 					}
-					
+
 					if( msg.active > 1 )
 					{
 					  msg.active -= me._dt;
-					  
+
 					  if( msg.active <= 1 )
 					  {
 					    msg.active = 1;
-					    
+
 					    me.lines[cur_line].setColor(color)
 					                      .setDrawMode(canvas.Text.TEXT)
 					                      .update();
@@ -131,11 +142,11 @@ var CAS =
 			    break;
 			  }
 			}
-			
+
 		  if( cur_line == size(me.lines) )
 		    break;
 		}
-		
+
     for(; cur_line < size(me.lines); cur_line += 1)
       me.lines[cur_line].hide();
 	},
@@ -161,7 +172,7 @@ var HDD = {
   new: func(placement)
   {
     debug.dump("Initializing HDD...");
-    
+
     var m = {
       parents: [HDD],
       canvas: canvas.new(HDD.canvas_settings),
@@ -169,7 +180,7 @@ var HDD = {
       listener_poll: [],
       init: 0
     };
-    
+
     var font_mapper = func(family, weight)
     {
       if( family == "Ubuntu Mono" and weight == "bold" )
@@ -183,7 +194,7 @@ var HDD = {
     canvas.parsesvg
     (
       m.root,
-      getprop("/sim/aircraft-dir") ~ "/Instruments/EICAS.svg",
+      "Instruments/EICAS.svg",
       {'font-mapper': font_mapper}
     );
     var acaws = m.root.getElementById("ACAWS_10");
@@ -220,7 +231,7 @@ var HDD = {
         },
         {
           arc: eng.getElementById("arc_hp"),
-          dial: eng.getElementById("dial_hp").updateCenter(),
+          dial: eng.getElementById("dial_hp"),
           text: eng.getElementById("readout_hp")
         }
       );
@@ -233,7 +244,7 @@ var HDD = {
           d.text.setText(sprintf("%.0f", val));
         },
         {
-          dial: eng.getElementById("dial_mgt").updateCenter(),
+          dial: eng.getElementById("dial_mgt"),
           text: eng.getElementById("readout_mgt")
         }
       );
@@ -246,7 +257,7 @@ var HDD = {
           d.text.setText(sprintf("%.0f", val));
         },
         {
-          dial: eng.getElementById("dial_ng").updateCenter(),
+          dial: eng.getElementById("dial_ng"),
           text: eng.getElementById("readout_ng")
         }
       );
@@ -255,7 +266,7 @@ var HDD = {
         "/engines/engine[" ~ i ~ "]/thruster/rpm",
         func(ob, val) ob.setText(sprintf("%.0f", val * 100.0 / 1057)),
         eng.getElementById("NP")
-      );      
+      );
       m.connect
       (
         "/engines/engine[" ~ i ~ "]/fuel-flow_pph",
@@ -269,7 +280,7 @@ var HDD = {
         eng.getElementById("E_PSI")
       );
       m.connect
-      (      
+      (
         "/engines/engine[" ~ i ~ "]/oil-temperature-degf",
         func(d, val) d.setText(sprintf("%.0f", (val - 32) * 5.0/9)),
         eng.getElementById("TEMP")
@@ -295,10 +306,10 @@ var HDD = {
       rad_alt:  "/instrumentation/radar-altimeter/radar-altitude-ft",
       wow_nlg:  "/gear/gear[4]/wow"
     };
-    
+
     foreach(var name; keys(m.input))
       m.input[name] = props.globals.getNode(m.input[name], 1);
-    
+
     return m;
   },
   connect: func(prop, cb, data = nil)
@@ -348,7 +359,7 @@ var HDD = {
         lp[3] = val;
       }
     }
-    
+
 #    if( getprop("/sim/fail") )
 #    {
 #      me.acaws[msg_index].setText("NAC 1 OVERHEAT");
@@ -372,9 +383,153 @@ var HDD = {
 
 var init_hdd = setlistener("/sim/signals/fdm-initialized", func() {
   removelistener(init_hdd); # only call once
-  var hdd1 = HDD.new({parent: "HDD 1", node: "PFD-Screen"});
+  var hdd1 = HDD.new({parent: "HDD 2", node: "PFD-Screen"});
   hdd1.update();
-  
+
   var acaws = CAS.new("instrumentation/eicas-messages/page[0]", getprop("/sim/aircraft-dir") ~ "/Systems/acaws.xml", hdd1.acaws);
   acaws.update();
+
+  var font_mapper = func(family, weight)
+  {
+    if( family == "Ubuntu Mono" and weight == "bold" )
+      return "UbuntuMono-B.ttf";
+  };
+
+  var pfd = canvas.new({
+    "name": "PFD",
+    "size": [768, 1024],
+    "view": [768, 1024],
+    "mipmapping": 1
+  });
+  pfd.addPlacement({parent: "HDD 1", node: "PFD-Screen"});
+  pfd.setColorBackground(0.02, 0.04, 0.02);
+
+  var pfd_root = pfd.createGroup();
+  canvas.parsesvg
+  (
+    pfd_root,
+    "Instruments/PFD.svg",
+    {'font-mapper': font_mapper}
+  );
+  pfd_root.getElementById("HSI")
+          .set("clip", "rect(98, 575, 534, 192)");
+
+  var rose = pfd_root.getElementById("rose");
+  rose.updateCenter();
+  foreach(var c; rose.getChildren())
+    if( isa(c, canvas.Text) )
+      c.updateCenter();
+  var hdg_readout = pfd_root.getElementById("hdg");
+  var horizon = pfd_root.getElementById("horizon");
+  horizon.updateCenter();
+  h_trans = horizon.createTransform();
+  h_rot   = horizon.createTransform();
+  var bank_indicator = pfd_root.getElementById("bank_indicator");
+
+  var ias_1 = pfd_root.getElementById("ias_readout_1")
+                      .set("clip", "rect(290, 60, 342, 40)");
+  var ias_10 = pfd_root.getElementById("ias_readout_10")
+                       .getChildren()[1].set("text", "3\n4")
+                                        .set("line-height", 0.85);
+  var agl = pfd_root.getElementById("agl_readout");
+  var hdg_bug = pfd_root.getElementById("hdg_bug");
+  var hdg_bug_readout = pfd_root.getElementById("hdg_bug_readout");
+
+  var ptr_1 = pfd_root.getElementById("bearing_ptr_1").updateCenter();
+  var ptr_1_freq = pfd_root.getElementById("brg_ptr_1_freq");
+  var ptr_1_ident = pfd_root.getElementById("brg_ptr_1_ident");
+
+  var updatePFD = func()
+  {
+    var hdg_deg = getprop("/orientation/heading-deg");
+    hdg_readout.set("text", sprintf("%03d", hdg_deg));
+    var hdg = hdg_deg * math.pi / 180.0;
+    rose.setRotation(-hdg);
+    foreach(var c; rose.getChildren())
+      if( isa(c, canvas.Text) )
+        c.setRotation(hdg);
+
+    var roll = getprop("/orientation/roll-deg") * math.pi / 180.0;
+    h_rot.setRotation(-roll, horizon.getCenter());
+    bank_indicator.setRotation(-roll);
+
+    var pitch = getprop("/orientation/pitch-deg");
+    # 10 deg -> 124 px
+    h_trans.setTranslation(0, pitch * 12.4);
+
+    var ias = getprop("/velocities/airspeed-kt");
+    var ias_round = int(ias + 0.5);
+    var offset = ias - ias_round;
+    ias_1.setTranslation(0, offset * 34);
+
+    var last_digit = ias_round - 10 * int(ias_round / 10) + 1;
+    foreach(var c; ias_1.getChildren())
+    {
+      c.set("text", sprintf("%d", math.mod(last_digit, 10)));
+      last_digit -= 1;
+    }
+    ias_1.update();
+
+    agl.set("text", sprintf("%d", getprop("/instrumentation/radar-altimeter/radar-altitude-ft")));
+
+    var hdg_bug_deg = getprop("/autopilot/settings/heading-bug-deg");
+    if( hdg_bug_deg != nil )
+    {
+      hdg_bug.setRotation(hdg_bug_deg * math.pi / 180.0);
+      hdg_bug_readout.set("text", sprintf("%03d", hdg_bug_deg));
+    }
+
+    ptr_1_freq.set("text", sprintf("%d", getprop("/instrumentation/adf[0]/frequencies/selected-khz")));
+    if( !getprop("/instrumentation/adf[0]/in-range") )
+    {
+      ptr_1.hide();
+      ptr_1_ident.set("text", "-----");
+    }
+    else
+    {
+      var brg = hdg_deg
+              + getprop("/instrumentation/adf[0]/indicated-bearing-deg");
+      ptr_1.show()
+           .setRotation(brg * math.pi / 180);
+      ptr_1_ident.set("text", getprop("/instrumentation/adf[0]/ident"));
+    }
+
+    settimer(updatePFD, 0.1);
+  };
+  updatePFD();
+
+  var sys_status = canvas.new(HDD.canvas_settings);
+  sys_status.addPlacement({parent: "HDD 3", node: "PFD-Screen"});
+  sys_status.setColorBackground(0.02, 0.04, 0.02);
+
+  var root = sys_status.createGroup();
+  canvas.parsesvg
+  (
+    root,
+    "Instruments/SYSTEM-STATUS.svg",
+    {'font-mapper': font_mapper}
+  );
+
+  var gen_apu = root.getElementById("gen_apu");
+  gen_apu.getElementById("gen_apu_volts_a")
+         .set("fill", "#ffffff")
+         .set("text", "OFF");
+  foreach(var id; ["volts_b", "volts_c", "load"])
+    gen_apu.getElementById("gen_apu_" ~ id).hide();
+
+  var echs = canvas.new({
+    "name": "ECHS MFCD",
+    "size": [1024, 768],
+    "view": [1024, 768],
+    "mipmapping": 1
+  });
+  echs.addPlacement({parent: "Actiview 104L", node: "Screen"});
+  echs.setColorBackground(0.02, 0.04, 0.02);
+  var echs_root = echs.createGroup();
+  canvas.parsesvg
+  (
+    echs_root,
+    "Instruments/ECHS-MFCD.svg",
+    {'font-mapper': font_mapper}
+  );
 });

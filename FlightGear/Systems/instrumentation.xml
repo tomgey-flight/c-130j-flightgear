@@ -25,6 +25,11 @@ file, these values will be used (they are hardcoded).
 
 <PropertyList>
 
+  <adf>
+    <name>adf</name>
+    <number>0</number>
+  </adf>
+
   <nav-radio>
     <name>nav</name>
     <number>0</number>
@@ -36,7 +41,6 @@ file, these values will be used (they are hardcoded).
   </nav-radio>
 
   <radar-altimeter>
-    <serviceable type="bool">true</serviceable>
     <name>radar-altimeter</name>
     <number>0</number>
     
