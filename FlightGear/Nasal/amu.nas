@@ -54,7 +54,7 @@ var Screen = {
         texts: []
       };
     }
-    
+
     return m;
   },
   setRow: func(side, row_index, config)
@@ -79,7 +79,7 @@ var Screen = {
         {
           var args = action['args'];
           if( typeof(args) == 'hash' )
-            property = args['property'];  
+            property = args['property'];
           action = func { fgcommand(fgcmd, props.Node.new(args)) };
         }
 
@@ -116,11 +116,11 @@ var Screen = {
         el_text._node.setValues(me.text_style);
         row.texts[i] = el_text;
       }
-      
+
       el_text.setDrawMode(1);
       el_text.setTranslation(me[side].x + offset, row.y);
       el_text.setColor(0, 1, 0);
-      
+
       var text = label[i];
       if( typeof(text) == 'vector' )
       {
@@ -158,9 +158,9 @@ var Screen = {
     # move to full character position (move half character width on odd length)
     me.title.setTranslation(241 - math.mod(size(config['title']), 2) * 0.5 * 30.75/1.59, 16);
     me.title.update();
-    
+
     me.commands = {};
-    
+
     if( me['listener'] != nil )
     {
       foreach(var name; keys(me.listener))
@@ -206,10 +206,10 @@ var AMU = {
       screen_left: Screen.new({"node": "AMU Screen.l"}),
       screen_right: Screen.new({"node": "AMU Screen.r"}),
     };
-    
+
     m.screen_left.setCallback(func(cmd){ m.onCmd(cmd); });
     m.screen_right.setCallback(func(cmd){ m.onCmd(cmd); });
-    
+
     var setStyle = func(text, active)
     {
       text.setPadding(5);
@@ -262,98 +262,197 @@ var AMU = {
       'r1': "DEFAULTS>"
     };
 
-    m.pages = {
-      'main-menu':
+    m.pages = {};
+    m.pages['main-menu'] = {
+      'left':
       {
-        'left':
-        {
-          'title': "MAIN MENU",
-          'l1': {label: "<PFD", action: {'page': 'pfd'}},
-          'l2': {label: "<ENGINE", action: {'page': 'engine'}},
-          'l3': "<CAPS",
-          'r1': {label: "NAV-RADAR>", action: {'page': 'nav-radar'}},
-          'r2': {label: "SYS STATUS>", action: {'page': 'sys-status'}},
-          'r3': "DIG MAP>",
-          'r4': "TAWS>"
-        },
-        'right':
-        {
-          'title': "MAIN MENU",
-          'l1': "<NAV SELECT",
-          'l2': "<ACAWS",
-          'l3': "<DIAGNOSTICS",
-          'l4': "<PREFLIGHT",
-          'r1': "DEFAULTS>",
-          'r3': "LIGHTING>",
-          'r4': "GCAS AND STALL>"
-        },
+        'title': "MAIN MENU",
+        'l1': {label: "<PFD", action: {'page': 'pfd'}},
+        'l2': {label: "<ENGINE", action: {'page': 'engine'}},
+        'l3': "<CAPS",
+        'r1': {label: "NAV-RADAR>", action: {'page': 'nav-radar'}},
+        'r2': {label: "SYS STATUS>", action: {'page': 'sys-status'}},
+        'r3': {label: "DIG MAP>", action: {'page': 'dig-map'}},
+        'r4': "TAWS>"
       },
-      'pfd':
+      'right':
       {
-        'left':
-        {
-          'title': "PFD",
-          'l1': propertyCycle('/instrumentation/pfd[0]/is_pilot', [0,1], [["PILOT",1]," / ",["COPILOT",0]]),
-          'l2': propertyCycle('/instrumentation/pfd[0]/baro_unit', ['in','mb'],["BARO ",["IN",'in']," / ",["MB",'mb']]),
-          'l3': propertyCycle('/instrumentation/pfd[0]/north', ['mag','true','grid'], [["MAG",'mag']," / ",["TRUE",'true']," / ",["GRID",'grid']]),
-          'l4': propertyCycle('/instrumentation/pfd[0]/fd_source', [0,1], ["FD SOURCE ",["P", 1]," / ",["CP",0]]),
-          'r1': propertyCycle('/instrumentation/pfd[0]/att_ref_imu', [1,2], ["ATT REF IMU ",["1",1]," / ",["2",2]]),
-          'r2': propertyCycle('/instrumentation/pfd[0]/cadc_src', [1,2], ["CADC ",["1",1]," / ",["2",2]]),
-          'r3': propertyCycle('/instrumentation/pfd[0]/rad_alt_src', [1,2], ["RAD ALT ", ["1", 1], " / ", ["2", 2]]),
-          'r4': {label: "MAIN MENU>", action: {'page': 'main-menu'}}
-        },
-        'right':
-        {
-          'title': "HDD POS",
-          'l1': "HDD 1",
-          'l2': "HDD 2",
-          'r1': "DEFAULTS>"
-        }
+        'title': "MAIN MENU",
+        'l1': {label: "<NAV SELECT", action: {'page': 'nav-select'}},
+        'l2': "<ACAWS",
+        'l3': "<DIAGNOSTICS",
+        'l4': "<PREFLIGHT",
+        'r1': "DEFAULTS>",
+        'r3': "LIGHTING>",
+        'r4': "GCAS AND STALL>"
       },
-      'engine':
+    };
+
+    m.pages['pfd'] = {
+      'left':
       {
-        'left':
-        {
-          'title': "ENGINE",
-          'l1': "<ENG DIAGNOSTICS",
-          'l2': "<PROP SYNC",
-          'l3': "EMS DATA DOWNLOAD",
-          'l4': "EMS EVENT RECORD",
-          'r3': "HDD POS>",
-          'r4': {label: "MAIN MENU>", action: {'page': 'main-menu'}}
-        },
-        'right': page_hdd_pos
+        'title': "PFD",
+        'l1': propertyCycle('/instrumentation/pfd[0]/is_pilot', [0,1], [["PILOT",1]," / ",["COPILOT",0]]),
+        'l2': propertyCycle('/instrumentation/pfd[0]/baro_unit', ['in','mb'],["BARO ",["IN",'in']," / ",["MB",'mb']]),
+        'l3': propertyCycle('/instrumentation/pfd[0]/north', ['mag','true','grid'], [["MAG",'mag']," / ",["TRUE",'true']," / ",["GRID",'grid']]),
+        'l4': propertyCycle('/instrumentation/pfd[0]/fd_source', [0,1], ["FD SOURCE ",["P", 1]," / ",["CP",0]]),
+        'r1': propertyCycle('/instrumentation/pfd[0]/att_ref_imu', [1,2], ["ATT REF IMU ",["1",1]," / ",["2",2]]),
+        'r2': propertyCycle('/instrumentation/pfd[0]/cadc_src', [1,2], ["CADC ",["1",1]," / ",["2",2]]),
+        'r3': propertyCycle('/instrumentation/pfd[0]/rad_alt_src', [1,2], ["RAD ALT ", ["1", 1], " / ", ["2", 2]]),
+        'r4': {label: "MAIN MENU>", action: {'page': 'main-menu'}}
       },
-      'sys-status':
+      'right':
       {
-        'left':
-        {
-          'title': "SYS STATUS DISPLAY",
-          'r3': "HDD POS>",
-          'r4': {label: "MAIN MENU>", action: {'page': 'main-menu'}}
-        },
-        'right': page_hdd_pos
-      },
-      'nav-radar':
-      {
-        'left':
-        {
-          'title': "NAV-RADAR DISPLAY",
-          'l1': propertyCycle('/instrumentation/nav[0]/full', [0,1], [["FULL",1]," / ",["PART",0]]),
-          'l2': propertyCycle('/instrumentation/nav[0]/center', [0,1], [["CENTER",1]," / ",["OFFSET",0]]),
-          'l3': propertyCycle('/instrumentation/nav[0]/north', ['mag','true','grid'], [["MAG",'mag']," / ",["TRUE",'true']," / ",["GRID",'grid']]),
-          'l4': propertyCycle('/instrumentation/nav[0]/up', ['hdg','trk','n'], [["HDG",'hdg']," / ",["TK",'trk']," / ",["N",'n']]),
-          'r1': "RANGE    2>",
-          'r2': "OVERLAYS>",
-          'r3': "HDD POS>",
-          'r4': {label: "MAIN MENU>", action: {'page': 'main-menu'}}
-        },
-        'right': page_hdd_pos
+        'title': "HDD POS",
+        'l1': "HDD 1",
+        'l2': "HDD 2",
+        'r1': "DEFAULTS>"
       }
     };
-    
+
+    m.pages['engine'] = {
+      'left':
+      {
+        'title': "ENGINE",
+        'l1': "<ENG DIAGNOSTICS",
+        'l2': "<PROP SYNC",
+        'l3': "EMS DATA DOWNLOAD",
+        'l4': "EMS EVENT RECORD",
+        'r3': "HDD POS>",
+        'r4': {label: "MAIN MENU>", action: {'page': 'main-menu'}}
+      },
+      'right': page_hdd_pos
+    };
+
+    m.pages['nav-radar'] = {
+      'left':
+      {
+        'title': "NAV-RADAR DISPLAY",
+        'l1': propertyCycle('/instrumentation/nav[0]/full', [0,1], [["FULL",1]," / ",["PART",0]]),
+        'l2': propertyCycle('/instrumentation/nav[0]/center', [0,1], [["CENTER",1]," / ",["OFFSET",0]]),
+        'l3': propertyCycle('/instrumentation/nav[0]/north', ['mag','true','grid'], [["MAG",'mag']," / ",["TRUE",'true']," / ",["GRID",'grid']]),
+        'l4': propertyCycle('/instrumentation/nav[0]/up', ['hdg','trk','n'], [["HDG",'hdg']," / ",["TK",'trk']," / ",["N",'n']]),
+        'r1': "RANGE    2>",
+        'r2': "OVERLAYS>",
+        'r3': "HDD POS>",
+        'r4': {label: "MAIN MENU>", action: {'page': 'main-menu'}}
+      },
+      'right': page_hdd_pos
+    };
+
+    m.pages['sys-status'] = {
+      'left':
+      {
+        'title': "SYS STATUS DISPLAY",
+        'r3': "HDD POS>",
+        'r4': {label: "MAIN MENU>", action: {'page': 'main-menu'}}
+      },
+      'right': page_hdd_pos
+    };
+
+    m.pages['dig-map'] = {
+      'left':
+      {
+        title: "DIG MAP DISPLAY",
+        l1: {label: "<MAP COVERAGE", action: {'page': 'dig-map-coverage'}},
+        l2: "CENTER / OFFSET",
+        l3: "MAG / TRUE / GRID",
+        l4: "HDG / NORTH UP",
+        r1: "WHT / YEL / MGN / BLK",
+        r2: {label: "OVERLAYS>", action: {'page': 'dig-map-overlays'}},
+        r3: {label: "HDD POS>", action: {'page': 'dig-map'}},
+        r4: {label: "MAIN MENU>", action: {'page': 'main-menu'}}
+      },
+      right: page_hdd_pos
+    };
+    m.pages['dig-map-coverage'] = {
+      'right':
+      {
+        title: "COVERAGE",
+        l1: "?",
+        l2: "?",
+        l3: "?",
+        r1: "?",
+        r2: "?",
+        r3: "?",
+        r4: "?"
+      }
+    };
+    m.pages['dig-map-overlays'] = {
+      'right':
+      {
+        title: "OVERLAYS",
+        l1: "NAV AIDS",
+        l2: "TACTICAL",
+        l3: "FLT PLN",
+        r4: "CLEAR ALL"
+      }
+    };
+
+    m.pages['nav-select'] = {
+      left:
+      {
+        title: "NAV SELECT",
+        l1: "PILOT / COPILOT",
+        l2: {label: "<PNTR 1 TAC 2", action: {page: 'nav-select-ptr1'}},
+        l3: {label: "<PNTR 2 ADF 2", action: {page: 'nav-select-ptr2'}},
+        l4: "SHIP SOLN INAV 1 / 2",
+        r1: {label: "CDI  VOR 1>", action: {page: 'nav-select-cdi'}},
+        r3: {label: "EGI POWER>", action: {page: 'nav-select-egi-power'}},
+        r4: {label: "MAIN MENU>", action: {'page': 'main-menu'}}
+      }
+    };
+    m.pages['nav-select-ptr1'] = {
+      right:
+      {
+        title: "POINTER 1",
+        l1: "VOR 1",
+        l2: "TACAN 1",
+        l3: "INAV 1",
+        l4: "ADF 1",
+        r1: "VOR 2",
+        r2: "TACAN 2",
+        r4: "ADF 2"
+      }
+    };
+    m.pages['nav-select-ptr2'] = {
+      right:
+      {
+        title: "POINTER 2",
+        l1: "VOR 1",
+        l2: "TACAN 1",
+        l3: "INAV 1",
+        l4: "ADF 1",
+        r1: "VOR 2",
+        r2: "TACAN 2",
+        r4: "ADF 2"
+      }
+    };
+    m.pages['nav-select-cdi'] = {
+      right:
+      {
+        title: "CDI",
+        l1: "VOR 1",
+        l2: "TACAN 1",
+        l3: "INAV 1",
+        l4: "IPRA",
+        r1: "VOR 2",
+        r2: "TACAN 2"
+      }
+    };
+    m.pages['nav-select-egi-power'] = {
+      right:
+      {
+        title: "EGI POWER",
+        l1: "MASTER EGI OFF",
+        l2: "EGI 1 RECYCLE",
+        r2: "EGI 2 RECYCLE"
+      }
+    };
+    m.pages['nav-select']['right'] = m.pages['nav-select-ptr1']['right'];
+
     m.setPage('main-menu');
-    
+
     var input = "/controls/instruments/AMU/input";
     setlistener(input, func(cmd) { m.onInput(cmd); });
     m.node_input = props.globals.getNode(input);
@@ -366,11 +465,11 @@ var AMU = {
 
     if( typeof(page) != 'hash' )
       return debug.dump("AMU: Unknown page: " ~ id);
-      
+
     var left = page['left'];
     if( typeof(left) == 'hash' )
       me.screen_left.setPage(left);
-      
+
     var right = page['right'];
     if( typeof(right) == 'hash' )
       me.screen_right.setPage(right);
@@ -379,10 +478,10 @@ var AMU = {
   {
     var input = me.node_input.getValue();
     me.node_input.setValue("");
-    
+
     var prefix = substr(input, 0, 2);
     var cmd = substr(input, 2);
-    
+
     if( prefix == "L-" )
       me.screen_left.onKeyPress(cmd);
     else if( prefix == "R-" )
