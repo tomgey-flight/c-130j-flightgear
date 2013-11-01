@@ -152,10 +152,10 @@
    <location unit="M">
     <x>-9.63</x>
     <y>-0.0</y>
-    <z>-0.275</z>
+    <z>-0.3</z>
    </location>
-   <static_friction>3.600</static_friction>
-   <dynamic_friction>1.800</dynamic_friction>
+   <static_friction>1.800</static_friction>
+   <dynamic_friction>0.900</dynamic_friction>
    <rolling_friction>0.020</rolling_friction>
    <spring_coeff unit="N/M">180000.000</spring_coeff>
    <damping_coeff unit="N/M/SEC">90000.000</damping_coeff>

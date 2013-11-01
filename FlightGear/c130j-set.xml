@@ -143,7 +143,7 @@
     <antenna>
       <x-offset-m type="double">8.3</x-offset-m>
       <y-offset-m type="double">0</y-offset-m>
-      <z-offset-m type="double">0.1</z-offset-m>
+      <z-offset-m type="double">-0.5</z-offset-m>
     </antenna>
 
     <!-- +-60deg up to 3000ft -->
