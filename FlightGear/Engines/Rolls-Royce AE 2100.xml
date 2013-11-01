@@ -24,7 +24,7 @@
   <startern1>                    20     </startern1>
 <!--  <ielumaxtorque unit="FT*LB"> 16400     </ielumaxtorque>-->
   <itt_delay>                     0.05  </itt_delay>
-  <betarangeend>                 35     </betarangeend>
+  <betarangeend>                 15     </betarangeend>
   <reversemaxpower>              80     </reversemaxpower>
 
   <table name="EnginePowerVC">
