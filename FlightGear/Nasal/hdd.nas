@@ -4,10 +4,11 @@
 
 # ADF
 #
-# /instrumentation/adf[i]/mode = "adf"
-# /instrumentation/adf[i]/ident
-# /instrumentation/adf[i]/in-range
-# /instrumentation/adf[i]/indicated-bearing-deg
+# /instrumentation/adf[#]/mode = "adf"
+# /instrumentation/adf[#]/ident
+# /instrumentation/adf[#]/in-range
+# /instrumentation/adf[#]/indicated-bearing-deg
+# /instrumentation/adf[#]/frequencies/selected-khz
 
 # ==============================================================================
 # Crew alerting system
@@ -435,9 +436,14 @@ var init_hdd = setlistener("/sim/signals/fdm-initialized", func() {
   var hdg_bug = pfd_root.getElementById("hdg_bug");
   var hdg_bug_readout = pfd_root.getElementById("hdg_bug_readout");
 
-  var ptr_1 = pfd_root.getElementById("bearing_ptr_1").updateCenter();
+  var ptr_1 = pfd_root.getElementById("brg_ptr_1").updateCenter();
   var ptr_1_freq = pfd_root.getElementById("brg_ptr_1_freq");
   var ptr_1_ident = pfd_root.getElementById("brg_ptr_1_ident");
+
+  var tcas_vs_box = [
+    pfd_root.getElementById("tcas_vs_box_t").hide(),
+    pfd_root.getElementById("tcas_vs_box_b").hide()
+  ];
 
   var updatePFD = func()
   {
