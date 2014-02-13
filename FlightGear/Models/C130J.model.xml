@@ -1,5 +1,33 @@
 <?xml version="1.0" ?>
 <PropertyList>
+
+<animation>
+  <type>texmultiple</type>
+  <object-name>HUD.l.canvas</object-name>
+  <transform>
+    <property>/hud/offset-x</property>
+    <subtype>textranslate</subtype>
+    <axis>
+     <x>1</x>
+     <y>0</y>
+     <z>0</z>
+   </axis>
+  </transform>
+  <transform>
+    <property>/hud/offset-y</property>
+    <subtype>textranslate</subtype>
+    <axis>
+     <x>0</x>
+     <y>1</y>
+     <z>0</z>
+   </axis>
+  </transform>
+  <transform>
+    <property>/hud/b</property>
+    <subtype>textrapezoid</subtype>
+  </transform>
+</animation>
+
 <animation>
   <type>pick</type>
   <object-name>SW Battery</object-name>
@@ -869,6 +897,56 @@
 			</binding>
 		</action>
 	</animation>
+<animation>
+		<type>rotate</type>
+		<object-name>Cylinder.078</object-name>
+		<property>/controls/flight/rudder</property>
+		<interpolation>
+			<entry>
+				<ind>-1</ind>
+				<dep>-15</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>15</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>-11.25</x-m>
+			<y-m>-0.578</y-m>
+			<z-m>2.29</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
+	<animation>
+		<type>rotate</type>
+		<object-name>Cylinder.079</object-name>
+		<property>/controls/flight/rudder</property>
+		<interpolation>
+			<entry>
+				<ind>-1</ind>
+				<dep>-15</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>15</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m>-11.25</x-m>
+			<y-m>-0.46</y-m>
+			<z-m>2.29</z-m>
+		</center>
+		<axis>
+			<x>0</x>
+			<y>-1</y>
+			<z>0</z>
+		</axis>
+	</animation>
 	<animation>
 		<type>rotate</type>
 		<object-name>Elevator</object-name>
@@ -905,7 +983,7 @@
 		<interpolation>
 			<entry>
 				<ind>0</ind>
-				<dep>42</dep>
+				<dep>-42</dep>
 			</entry>
 			<entry>
 				<ind>0.5</ind>
@@ -918,7 +996,7 @@
 			<z-m>1.615</z-m>
 		</center>
 		<axis>
-			<x>1</x>
+			<x>-1</x>
 			<y>0</y>
 			<z>0</z>
 		</axis>
@@ -980,7 +1058,7 @@
 		<offset>-0.27</offset>
 		<center>
 			<x-m>-0.62</x-m>
-			<y-m>-2.17</y-m>
+			<y-m>-2.173</y-m>
 			<z-m>0.61</z-m>
 		</center>
 		<axis>
@@ -998,10 +1076,30 @@
 		</overlay>
 		<offsets>
 			<x-m>-0.62</x-m>
-			<y-m>-2.17</y-m>
+			<y-m>-2.173</y-m>
 			<z-m>-0.355</z-m>
 		</offsets>
 	</model>
+	<animation>
+		<type>translate</type>
+		<object-name>Cylinder.070</object-name>
+		<property>/controls/gear/brake-left</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>-0.029</dep>
+			</entry>
+		</interpolation>
+		<axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</axis>
+	</animation>
 	<animation>
 		<type>translate</type>
 		<object-name>MLG Strut.l2</object-name>
@@ -1033,8 +1131,8 @@
 		<factor>13.74</factor>
 		<offset>-0.27</offset>
 		<center>
-			<x-m>0.92</x-m>
-			<y-m>-2.17</y-m>
+			<x-m>0.91</x-m>
+			<y-m>-2.172</y-m>
 			<z-m>0.61</z-m>
 		</center>
 		<axis>
@@ -1051,8 +1149,8 @@
 			</params>
 		</overlay>
 		<offsets>
-			<x-m>0.92</x-m>
-			<y-m>-2.17</y-m>
+			<x-m>0.91</x-m>
+			<y-m>-2.172</y-m>
 			<z-m>-0.355</z-m>
 		</offsets>
 	</model>
@@ -1088,7 +1186,7 @@
 		<offset>-0.27</offset>
 		<center>
 			<x-m>-0.62</x-m>
-			<y-m>2.17</y-m>
+			<y-m>2.172</y-m>
 			<z-m>0.61</z-m>
 		</center>
 		<axis>
@@ -1106,7 +1204,7 @@
 		</overlay>
 		<offsets>
 			<x-m>-0.62</x-m>
-			<y-m>2.17</y-m>
+			<y-m>2.172</y-m>
 			<z-m>-0.355</z-m>
 		</offsets>
 	</model>
@@ -1141,8 +1239,8 @@
 		<factor>13.74</factor>
 		<offset>-0.27</offset>
 		<center>
-			<x-m>0.92</x-m>
-			<y-m>2.17</y-m>
+			<x-m>0.91</x-m>
+			<y-m>2.172</y-m>
 			<z-m>0.61</z-m>
 		</center>
 		<axis>
@@ -1159,8 +1257,8 @@
 			</params>
 		</overlay>
 		<offsets>
-			<x-m>0.92</x-m>
-			<y-m>2.17</y-m>
+			<x-m>0.91</x-m>
+			<y-m>2.172</y-m>
 			<z-m>-0.355</z-m>
 		</offsets>
 	</model>
@@ -1400,31 +1498,6 @@
 		</axis>
 	</animation>
 	<animation>
-		<type>rotate</type>
-		<object-name>Inner Flap.l</object-name>
-		<property>/surface-positions/flap-pos-norm</property>
-		<interpolation>
-			<entry>
-				<ind>0</ind>
-				<dep>0</dep>
-			</entry>
-			<entry>
-				<ind>1</ind>
-				<dep>36</dep>
-			</entry>
-		</interpolation>
-		<center>
-			<x-m>2.35</x-m>
-			<y-m>-4</y-m>
-			<z-m>2.107</z-m>
-		</center>
-		<axis>
-			<x>0</x>
-			<y>1</y>
-			<z>0</z>
-		</axis>
-	</animation>
-	<animation>
 		<type>translate</type>
 		<object-name>Flap Slider</object-name>
 		<property>/surface-positions/flap-pos-norm</property>
@@ -1445,34 +1518,29 @@
 		</axis>
 	</animation>
 	<animation>
-		<type>locked-track</type>
-		<object-name>Inner Flap.r</object-name>
+		<type>rotate</type>
+		<object-name>Inner Flap.l</object-name>
+		<property>/surface-positions/flap-pos-norm</property>
+		<interpolation>
+			<entry>
+				<ind>0</ind>
+				<dep>0</dep>
+			</entry>
+			<entry>
+				<ind>1</ind>
+				<dep>36</dep>
+			</entry>
+		</interpolation>
 		<center>
 			<x-m>2.35</x-m>
-			<y-m>2.09</y-m>
+			<y-m>-3.77</y-m>
 			<z-m>2.107</z-m>
 		</center>
-		<lock-axis>
+		<axis>
 			<x>0</x>
 			<y>1</y>
 			<z>0</z>
-		</lock-axis>
-		<track-axis>
-			<x>1</x>
-			<y>0</y>
-			<z>0</z>
-		</track-axis>
-		<target-name>Flap Slider</target-name>
-		<target-center>
-			<x-m>1.58</x-m>
-			<y-m>2.09</y-m>
-			<z-m>4.364</z-m>
-		</target-center>
-		<slave-center>
-			<x-m>2.149</x-m>
-			<y-m>2.09</y-m>
-			<z-m>4.116</z-m>
-		</slave-center>
+		</axis>
 	</animation>
 	<animation>
 		<type>locked-track</type>
@@ -1629,8 +1697,8 @@
 		<object-name>Cube.091</object-name>
 		<center>
 			<x-m>-0.62</x-m>
-			<y-m>-1.791</y-m>
-			<z-m>0.48</z-m>
+			<y-m>-1.789</y-m>
+			<z-m>0.495</z-m>
 		</center>
 		<lock-axis>
 			<x>0</x>
@@ -1644,18 +1712,18 @@
 		</track-axis>
 		<target-name>MLG Axis.l2</target-name>
 		<target-center>
-			<x-m>0.92</x-m>
-			<y-m>-1.855</y-m>
-			<z-m>0.48</z-m>
+			<x-m>0.91</x-m>
+			<y-m>-1.857</y-m>
+			<z-m>0.495</z-m>
 		</target-center>
 	</animation>
 	<animation>
 		<type>locked-track</type>
 		<object-name>Cube.092</object-name>
 		<center>
-			<x-m>0.92</x-m>
-			<y-m>-1.79</y-m>
-			<z-m>0.48</z-m>
+			<x-m>0.91</x-m>
+			<y-m>-1.787</y-m>
+			<z-m>0.495</z-m>
 		</center>
 		<lock-axis>
 			<x>0</x>
@@ -1670,8 +1738,8 @@
 		<target-name>MLG Axis.l1</target-name>
 		<target-center>
 			<x-m>-0.62</x-m>
-			<y-m>-1.855</y-m>
-			<z-m>0.48</z-m>
+			<y-m>-1.858</y-m>
+			<z-m>0.495</z-m>
 		</target-center>
 	</animation>
 	<animation>
@@ -1905,6 +1973,70 @@
 	</animation>
 	<animation>
 		<type>locked-track</type>
+		<object-name>Crew Door Upper Torque Tube</object-name>
+		<center>
+			<x-m>-8.771</x-m>
+			<y-m>-1.967</y-m>
+			<z-m>2.377</z-m>
+		</center>
+		<lock-axis>
+			<x>0.988</x>
+			<y>-0.157</y>
+			<z>0</z>
+		</lock-axis>
+		<track-axis>
+			<x>-0.02</x>
+			<y>-0.124</y>
+			<z>0.992</z>
+		</track-axis>
+		<target-name>Crew Door Inner Handle</target-name>
+		<target-center>
+			<x-m>-8.756</x-m>
+			<y-m>-1.873</y-m>
+			<z-m>1.87</z-m>
+		</target-center>
+		<slave-name>Crew Door Rod N5.001</slave-name>
+		<slave-center>
+			<x-m>-8.772</x-m>
+			<y-m>-1.972</y-m>
+			<z-m>2.414</z-m>
+		</slave-center>
+		<slave-dof>2</slave-dof>
+	</animation>
+	<animation>
+		<type>locked-track</type>
+		<object-name>Crew Door Inner Handle</object-name>
+		<center>
+			<x-m>-8.797</x-m>
+			<y-m>-1.857</y-m>
+			<z-m>1.835</z-m>
+		</center>
+		<lock-axis>
+			<x>-0.162</x>
+			<y>-0.954</y>
+			<z>-0.253</z>
+		</lock-axis>
+		<track-axis>
+			<x>0.776</x>
+			<y>-0.282</y>
+			<z>0.564</z>
+		</track-axis>
+		<target-name>Crew Door Handle.004</target-name>
+		<target-center>
+			<x-m>-8.802</x-m>
+			<y-m>-1.765</y-m>
+			<z-m>1.446</z-m>
+		</target-center>
+		<slave-name>Crew Door Rod N5</slave-name>
+		<slave-center>
+			<x-m>-8.738</x-m>
+			<y-m>-1.878</y-m>
+			<z-m>1.878</z-m>
+		</slave-center>
+		<slave-dof>2</slave-dof>
+	</animation>
+	<animation>
+		<type>locked-track</type>
 		<object-name>NLG Front Door</object-name>
 		<center>
 			<x-m>-11.52</x-m>
@@ -1917,9 +2049,9 @@
 			<z>0</z>
 		</lock-axis>
 		<track-axis>
-			<x>1</x>
+			<x>0.959</x>
 			<y>0</y>
-			<z>0</z>
+			<z>-0.282</z>
 		</track-axis>
 		<target-name>NLG-Strut</target-name>
 		<target-center>
@@ -1932,40 +2064,6 @@
 			<x-m>-11.335</x-m>
 			<y-m>0</y-m>
 			<z-m>1.076</z-m>
-		</slave-center>
-	</animation>
-	<animation>
-		<type>locked-track</type>
-		<object-name>Torque Link Upper Arm</object-name>
-        <condition>
-            <property>/controls/gear/nose-wheel-steering</property>
-        </condition>
-        <disabled-rotation-deg>-90</disabled-rotation-deg>
-		<center>
-			<x-m>-9.785</x-m>
-			<y-m>0</y-m>
-			<z-m>1.04</z-m>
-		</center>
-		<lock-axis>
-			<x>0</x>
-			<y>1</y>
-			<z>0</z>
-		</lock-axis>
-		<track-axis>
-			<x>0.022</x>
-			<y>0</y>
-			<z>-1</z>
-		</track-axis>
-		<target-name>Torque Link Lower Arm</target-name>
-		<target-center>
-			<x-m>-9.789</x-m>
-			<y-m>0</y-m>
-			<z-m>0.454</z-m>
-		</target-center>
-		<slave-center>
-			<x-m>-10.033</x-m>
-			<y-m>0</y-m>
-			<z-m>1.035</z-m>
 		</slave-center>
 	</animation>
     <animation>
@@ -1982,9 +2080,9 @@
 			<z>0</z>
 		</lock-axis>
 		<track-axis>
-			<x>-0.125</x>
+			<x>0.548</x>
 			<y>0</y>
-			<z>0.992</z>
+			<z>-0.837</z>
 		</track-axis>
 		<target-name>NLG-Strut</target-name>
 		<target-center>
@@ -2013,9 +2111,9 @@
 			<z>0</z>
 		</lock-axis>
 		<track-axis>
-			<x>1</x>
+			<x>0.787</x>
 			<y>0</y>
-			<z>0</z>
+			<z>-0.617</z>
 		</track-axis>
 		<target-name>NLG Back Door Front Arm</target-name>
 		<target-center>
@@ -2028,6 +2126,70 @@
 			<x-m>-8.39</x-m>
 			<y-m>0</y-m>
 			<z-m>0.477</z-m>
+		</slave-center>
+	</animation>
+	<animation>
+		<type>locked-track</type>
+		<object-name>Torque Link Upper Arm</object-name>
+        <condition>
+            <property>/controls/gear/nose-wheel-steering</property>
+        </condition>
+        <disabled-rotation-deg>-90</disabled-rotation-deg>
+		<center>
+			<x-m>-9.785</x-m>
+			<y-m>0</y-m>
+			<z-m>1.04</z-m>
+		</center>
+		<lock-axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</lock-axis>
+		<track-axis>
+			<x>-1</x>
+			<y>0</y>
+			<z>-0.022</z>
+		</track-axis>
+		<target-name>Torque Link Lower Arm</target-name>
+		<target-center>
+			<x-m>-9.789</x-m>
+			<y-m>0</y-m>
+			<z-m>0.454</z-m>
+		</target-center>
+		<slave-center>
+			<x-m>-10.033</x-m>
+			<y-m>0</y-m>
+			<z-m>1.035</z-m>
+		</slave-center>
+	</animation>
+	<animation>
+		<type>locked-track</type>
+		<object-name>Inner Flap.r</object-name>
+		<center>
+			<x-m>2.35</x-m>
+			<y-m>2.09</y-m>
+			<z-m>2.107</z-m>
+		</center>
+		<lock-axis>
+			<x>0</x>
+			<y>1</y>
+			<z>0</z>
+		</lock-axis>
+		<track-axis>
+			<x>-0.1</x>
+			<y>0</y>
+			<z>0.995</z>
+		</track-axis>
+		<target-name>Flap Slider</target-name>
+		<target-center>
+			<x-m>1.58</x-m>
+			<y-m>2.09</y-m>
+			<z-m>4.364</z-m>
+		</target-center>
+		<slave-center>
+			<x-m>2.149</x-m>
+			<y-m>2.09</y-m>
+			<z-m>4.116</z-m>
 		</slave-center>
 	</animation>
 	<effect>
