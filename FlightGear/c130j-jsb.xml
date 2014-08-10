@@ -152,7 +152,7 @@
    <location unit="M">
     <x>-9.63</x>
     <y>-0.0</y>
-    <z>-0.3</z>
+    <z>-0.275</z>
    </location>
    <static_friction>1.800</static_friction>
    <dynamic_friction>0.900</dynamic_friction>
@@ -307,6 +307,31 @@
     <damping_coeff unit="LBS/FT/SEC"> 31005.83 </damping_coeff>
  </contact>
 -->
+
+  <contact type="STRUCTURE" name="Wing.l">
+    <location unit="M">
+     <x> -0.83 </x>
+     <y>-20.19 </y>
+     <z>  4.83 </z>
+    </location>
+    <static_friction>  4 </static_friction>
+    <dynamic_friction> 2.5 </dynamic_friction>
+    <spring_coeff unit="N/M">72000000</spring_coeff>
+    <damping_coeff unit="N/M/SEC">80000</damping_coeff>
+    <damping_coeff_rebound unit="N/M/SEC">72000000</damping_coeff_rebound>
+  </contact>
+  <contact type="STRUCTURE" name="Wing.r">
+    <location unit="M">
+     <x> -0.83 </x>
+     <y> 20.19 </y>
+     <z>  4.83 </z>
+    </location>
+    <static_friction>  4 </static_friction>
+    <dynamic_friction> 2.5 </dynamic_friction>
+    <spring_coeff unit="N/M">72000000</spring_coeff>
+    <damping_coeff unit="N/M/SEC">80000</damping_coeff>
+    <damping_coeff_rebound unit="N/M/SEC">72000000</damping_coeff_rebound>
+  </contact>
  </ground_reactions>
 
  <propulsion>
