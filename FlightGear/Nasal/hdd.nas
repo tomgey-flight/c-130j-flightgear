@@ -535,4 +535,118 @@ var init_hdd = setlistener("/sim/signals/fdm-initialized", func() {
     "Instruments/ECHS-MFCD.svg",
     {'font-mapper': font_mapper}
   );
+
+  var map = canvas.new(HDD.canvas_settings);
+  map.addPlacement({parent: "HDD 5", node: "PFD-Screen", 'capture-events': 1});
+  map.setColorBackground(1.0, 1.0, 1.0);
+
+  var g = map.createGroup()
+             .set("fill", "#646464");
+  g.createChild("path")
+   .moveTo(256 * 1.5 - 10, 256 * 2)
+   .horiz(20)
+   .move(-10,-10)
+   .vert(20)
+   .set("stroke", "red")
+   .set("stroke-width", 2)
+   .set("z-index", 1);
+
+  # http://polymaps.org/docs/
+  # https://github.com/simplegeo/polymaps
+  # https://github.com/Leaflet/Leaflet
+
+  var maps_base = getprop("/sim/fg-home") ~ '/cache/maps';
+
+  # http://otile1.mqcdn.com/tiles/1.0.0/map
+  # http://otile1.mqcdn.com/tiles/1.0.0/sat
+  # http://a.tile.openstreetmap.org
+  var makeUrl =
+    string.compileTemplate('http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg');
+
+  var makePath =
+    string.compileTemplate(maps_base ~ '/osm-{type}/{z}/{x}/{y}.jpg');
+#    string.compileTemplate(maps_base ~ '/ofm-{type}/{z}/{x}/{y}.png');
+
+  var num_tiles = [4, 5];
+  var tiles = setsize([], num_tiles[0]);
+  for(var x = 0; x < num_tiles[0]; x += 1)
+  {
+    tiles[x] = setsize([], num_tiles[1]);
+    for(var y = 0; y < num_tiles[1]; y += 1)
+      tiles[x][y] = g.createChild("image", "map-tile");
+  }
+
+  var last_tile = [-1,-1];
+#  var last_path = "/ofm/LOWW_2-3";
+  var last_type = "ENR";
+
+#  setprop("/map/path", last_path);
+  setprop("/map/zoom", 10);
+  setprop("/map/type", last_type);
+
+  var updateTiles = func()
+  {
+    var lat = getprop('/position/latitude-deg');
+    var lon = getprop('/position/longitude-deg');
+    var zoom = getprop("/map/zoom");
+
+    var n = math.pow(2, zoom);
+    var offset = [
+      n * ((lon + 180) / 360) - 1.5,
+      (1 - math.ln(math.tan(lat * math.pi/180) + 1 / math.cos(lat * math.pi/180)) / math.pi) / 2 * n - 2
+    ];
+    var tile_index = [int(offset[0]), int(offset[1])];
+#    var path = getprop("/map/path");
+    var type = getprop("/map/type");
+
+    var ox = tile_index[0] - offset[0];
+    var oy = tile_index[1] - offset[1];
+
+    for(var x = 0; x < num_tiles[0]; x += 1)
+      for(var y = 0; y < num_tiles[1]; y += 1)
+        tiles[x][y].setTranslation(int((ox + x) * 256 + 0.5), int((oy + y) * 256 + 0.5));
+
+    if(    tile_index[0] != last_tile[0]
+        or tile_index[1] != last_tile[1]
+#        or path != last_path
+        or type != last_type )
+    {
+      for(var x = 0; x < num_tiles[0]; x += 1)
+        for(var y = 0; y < num_tiles[1]; y += 1)
+        {
+          var pos = {
+            z: zoom,
+            x: int(offset[0] + x),
+            y: int(offset[1] + y),
+            type: type
+          };
+
+          (func {
+          var img_path = makePath(pos);
+          var tile = tiles[x][y];
+
+          if( io.stat(img_path) == nil )
+          {
+            var img_url = makeUrl(pos);
+            print('requesting ' ~ img_url);
+            http.save(img_url, img_path)
+                .done(func {print('received image ' ~ img_path); tile.set("src", img_path);})
+                .fail(func (r) print('Failed to get image ' ~ img_path ~ ' ' ~ r.status ~ ': ' ~ r.reason));
+          }
+          else
+          {
+            print('loading ' ~ img_path);
+            tile.set("src", img_path)
+          }
+          })();
+        }
+
+      last_tile = tile_index;
+#      last_path = path;
+      last_type = type;
+    }
+
+    settimer(updateTiles, 5);
+  };
+  updateTiles();
 });
