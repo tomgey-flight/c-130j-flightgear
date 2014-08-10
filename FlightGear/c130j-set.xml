@@ -7,6 +7,11 @@
   <author>Thomas Geymayer</author>
   <flight-model>jsb</flight-model>
   <aero>c130j-jsb</aero>
+
+  <startup>
+    <splash-texture>c130j-splash.png</splash-texture>
+    <splash-title>C-130J Super Hercules</splash-title>
+  </startup>
   
   <menubar include="gui/menubar.xml"/>
   <help include="gui/help.xml"/>
@@ -182,6 +187,9 @@
   <reversethrust>
    <file>Nasal/reverse-thrust.nas</file>
   </reversethrust>
+  <switches>
+    <file>Nasal/switches.nas</file>
+  </switches>
 </nasal>
 
 </PropertyList>
