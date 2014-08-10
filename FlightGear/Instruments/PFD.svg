@@ -21,17 +21,6 @@
    inkscape:export-ydpi="90">
   <defs
      id="defs4">
-    <mask
-       maskUnits="userSpaceOnUse"
-       id="mask4310">
-      <rect
-         style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
-         id="rect4312"
-         width="383.00003"
-         height="436"
-         x="192.49997"
-         y="98" />
-    </mask>
     <filter
        inkscape:collect="always"
        id="filter4384">
@@ -41,15 +30,45 @@
          id="feGaussianBlur4386" />
     </filter>
     <clipPath
+       maskUnits="userSpaceOnUse"
+       id="clipPathHSI">
+      <rect
+         id="rect4312"
+         width="383.00003"
+         height="436"
+         x="192.49997"
+         y="98" />
+    </clipPath>
+    <clipPath
        clipPathUnits="userSpaceOnUse"
        id="clipPath4239">
       <rect
-         style="fill:none;stroke:#ff0000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
          id="rect4241"
          width="20"
          height="52"
          x="40"
          y="318.44128" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3651">
+      <rect
+         id="rect3653"
+         width="20"
+         height="32"
+         x="20"
+         y="328.44128" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath3619">
+      <rect
+         style="fill:none;stroke:#ffffff;stroke-width:3.18897629;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         id="rect3621"
+         width="20"
+         height="32"
+         x="0"
+         y="328.44128" />
     </clipPath>
   </defs>
   <sodipodi:namedview
@@ -59,18 +78,18 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.0575273"
-     inkscape:cx="587.52394"
-     inkscape:cy="780.26021"
+     inkscape:zoom="4.1150549"
+     inkscape:cx="131.51984"
+     inkscape:cy="658.66268"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      units="px"
      borderlayer="true"
-     inkscape:window-width="1871"
-     inkscape:window-height="1056"
-     inkscape:window-x="49"
-     inkscape:window-y="1104"
+     inkscape:window-width="1680"
+     inkscape:window-height="1026"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-bottom="2.7755576e-17"
@@ -220,7 +239,7 @@
        sodipodi:cy="814"
        sodipodi:rx="174"
        sodipodi:ry="174"
-       d="m 544,814 a 174,174 0 1 1 -348,0 174,174 0 1 1 348,0 z"
+       d="m 544,814 c 0,96.09755 -77.90245,174 -174,174 -96.09755,0 -174,-77.90245 -174,-174 0,-96.09755 77.90245,-174 174,-174 96.09755,0 174,77.90245 174,174 z"
        transform="translate(14,-272.73982)" />
   </g>
   <g
@@ -228,10 +247,10 @@
      id="HSI"
      inkscape:label="HSI"
      style="display:inline"
-     sodipodi:insensitive="true">
+     sodipodi:insensitive="true"
+     clip-path="url(#clipPathHSI)">
     <g
-       id="horizon"
-       mask="url(#mask4310)">
+       id="horizon">
       <g
          transform="translate(0,14)"
          inkscape:label="#g4057"
@@ -1994,27 +2013,30 @@
        id="path4339"
        inkscape:connector-curvature="0"
        transform="translate(0,28.441283)" />
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:85.00000238%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;display:inline;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono Bold"
-       x="50"
-       y="322.78128"
-       id="ias_readout_1"
-       sodipodi:linespacing="85.000002%"
-       inkscape:label="#text4129-36-4-6"
-       clip-path="url(#clipPath4239)"><tspan
-         sodipodi:role="line"
-         id="tspan3461"
+    <g
+       id="g3612"
+       clip-path="url(#clipPath4239)">
+      <text
+         inkscape:label="#text4129-36-4-6"
+         sodipodi:linespacing="85.000002%"
+         id="ias_readout_1"
+         y="322.78128"
          x="50"
-         y="322.78128">1</tspan><tspan
-         sodipodi:role="line"
-         id="tspan3463"
-         x="50"
-         y="356.78128">0</tspan><tspan
-         sodipodi:role="line"
-         id="tspan3465"
-         x="50"
-         y="390.78128">9</tspan></text>
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:85.00000238%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;display:inline;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono Bold"
+         xml:space="preserve"><tspan
+           y="322.78128"
+           x="50"
+           id="tspan3461"
+           sodipodi:role="line">1</tspan><tspan
+           y="356.78128"
+           x="50"
+           id="tspan3463"
+           sodipodi:role="line">0</tspan><tspan
+           y="390.78128"
+           x="50"
+           id="tspan3465"
+           sodipodi:role="line">9</tspan></text>
+    </g>
     <path
        style="fill:none;stroke:#ffffff;stroke-width:6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 384,582.44128 0,-21"
@@ -2121,38 +2143,46 @@
        transform="matrix(0.8660254,0.5,-0.5,0.8660254,223.66688,-145.85362)"
        width="768"
        height="1024" />
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:85.00000238%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;display:inline;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono Bold"
-       x="30"
-       y="322.78128"
-       id="ias_readout_10"
-       sodipodi:linespacing="85.000002%"
-       inkscape:label="#text4129-36-4-6-3"><tspan
-         sodipodi:role="line"
-         id="tspan3494"
+    <g
+       id="g3618"
+       clip-path="url(#clipPath3651)">
+      <text
+         inkscape:label="#text4129-36-4-6-3"
+         sodipodi:linespacing="85.000002%"
+         id="ias_readout_10"
+         y="322.78128"
          x="30"
-         y="322.78128">4</tspan><tspan
-         sodipodi:role="line"
-         id="tspan3496"
-         x="30"
-         y="356.78128">3</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:85.00000238%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;display:inline;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono Bold"
-       x="10"
-       y="322.78128"
-       id="ias_readout_100"
-       sodipodi:linespacing="85.000002%"
-       inkscape:label="#text4129-36-4-6-3-2"><tspan
-         sodipodi:role="line"
-         id="tspan3511"
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:85.00000238%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;display:inline;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono Bold"
+         xml:space="preserve"><tspan
+           y="322.78128"
+           x="30"
+           id="tspan3494"
+           sodipodi:role="line">4</tspan><tspan
+           y="356.78128"
+           x="30"
+           id="tspan3496"
+           sodipodi:role="line">3</tspan></text>
+    </g>
+    <g
+       id="g3613"
+       clip-path="url(#clipPath3619)">
+      <text
+         inkscape:label="#text4129-36-4-6-3-2"
+         sodipodi:linespacing="85.000002%"
+         id="ias_readout_100"
+         y="322.78128"
          x="10"
-         y="322.78128">1</tspan><tspan
-         sodipodi:role="line"
-         id="tspan3513"
-         x="10"
-         y="356.78128" /></text>
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:85.00000238%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;display:inline;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono Bold"
+         xml:space="preserve"><tspan
+           y="322.78128"
+           x="10"
+           id="tspan3511"
+           sodipodi:role="line">1</tspan><tspan
+           y="356.78128"
+           x="10"
+           id="tspan3513"
+           sodipodi:role="line">0</tspan></text>
+    </g>
     <rect
        y="613.42126"
        x="502"

@@ -412,8 +412,6 @@ var init_hdd = setlistener("/sim/signals/fdm-initialized", func() {
     "Instruments/PFD.svg",
     {'font-mapper': font_mapper}
   );
-  pfd_root.getElementById("HSI")
-          .set("clip", "rect(98, 575, 534, 192)");
 
   var rose = pfd_root.getElementById("rose");
   rose.updateCenter();
@@ -427,8 +425,7 @@ var init_hdd = setlistener("/sim/signals/fdm-initialized", func() {
   h_rot   = horizon.createTransform();
   var bank_indicator = pfd_root.getElementById("bank_indicator");
 
-  var ias_1 = pfd_root.getElementById("ias_readout_1")
-                      .set("clip", "rect(290, 60, 342, 40)");
+  var ias_1 = pfd_root.getElementById("ias_readout_1");
   var ias_10 = pfd_root.getElementById("ias_readout_10")
                        .getChildren()[1].set("text", "3\n4")
                                         .set("line-height", 0.85);
