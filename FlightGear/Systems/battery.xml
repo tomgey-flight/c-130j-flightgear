@@ -1,0 +1,103 @@
+<?xml version="1.0" ?>
+<PropertyList>
+
+<name>Starter Battery</name>
+<!--<capacity-ah>35</capacity-ah>
+<num-cells>12</num-cells>-->
+
+<property-root>/systems/battery</property-root>
+<property value="35">capacity-ah</property>
+<property value="1.0">state-of-charge</property>
+<property value="0.008">internal-resistance</property>
+<property value="0.0">load-amps</property>
+
+<!-- Integrate capacity -->
+<filter>
+  <type>noise-spike</type>
+
+  <output>state-of-charge</output>
+  <initialize-to>output</initialize-to>
+
+  <max-rate-of-change>
+    <expression>
+      <product>
+        <property>load-amps</property>
+        <div>
+          <!-- 1/3600 (amps/hour -> amps/sec) -->
+          <value>0.00027778</value>
+          <property>capacity-ah</property>
+        </div>
+      </product>
+    </expression>
+  </max-rate-of-change>
+
+  <!-- If the battery is charged let the capacity increase towards the maximum
+       capacity. Otherwise the target value defaults to zero and will empty the
+       battery if a non-zero load is applied.
+  -->
+  <input>
+    <value>1</value>
+    <condition>
+      <less-than>
+        <property>load-amps</property>
+        <value>0</value>
+      </less-than>
+    </condition>
+  </input>
+</filter>
+
+<!-- Discharge model: Vbatt = OCV - R * i -->
+<filter>
+  <type>noise-spike</type>
+  
+  <output>voltage</output>
+  <initialize-to>input</initialize-to>
+  
+  <max-rate-of-change>1000</max-rate-of-change>
+  
+  <input>
+    <expression>
+      <difference>
+      
+        <!-- Open circuit voltage dependent on SOC
+             TODO also depend on temperature
+        -->
+        <product>
+          <value>26</value>
+          <table>
+            <property>state-of-charge</property>
+            <entry>
+              <ind>0   </ind>
+              <dep>0.83</dep>
+            </entry>
+            <entry>
+              <ind>0.1 </ind>
+              <dep>0.89</dep>
+            </entry>
+            <entry>
+              <ind>0.3 </ind>
+              <dep>0.92</dep>
+            </entry>
+            <entry>
+              <ind>0.9 </ind>
+              <dep>0.98</dep>
+            </entry>
+            <entry>
+              <ind>1   </ind>
+              <dep>1   </dep>
+            </entry>
+          </table>
+        </product>
+
+        <!-- Voltage drop due to internal resistance -->
+        <product>
+          <property>internal-resistance</property>
+          <property>load-amps</property>
+        </product>
+
+      </difference>
+    </expression>
+  </input>
+</filter>
+
+</PropertyList>

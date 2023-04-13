@@ -202,7 +202,56 @@
     <damping_coeff unit="N/M/SEC">80000</damping_coeff>
     <damping_coeff_rebound unit="N/M/SEC">72000000</damping_coeff_rebound>
  </contact>
-  
+ <contact type="STRUCTURE" name="Nose Jack.l">
+    <location unit="M">
+     <x> -9.7  </x>
+     <y> -1.78 </y>
+     <z>  1.81 </z>
+    </location>
+    <static_friction>  4 </static_friction>
+    <dynamic_friction> 2.5 </dynamic_friction>
+    <spring_coeff unit="N/M">72000000</spring_coeff>
+    <damping_coeff unit="N/M/SEC">80000</damping_coeff>
+    <damping_coeff_rebound unit="N/M/SEC">72000000</damping_coeff_rebound>
+ </contact>
+ <contact type="STRUCTURE" name="Nose Jack.r">
+    <location unit="M">
+     <x> -9.7  </x>
+     <y>  1.78 </y>
+     <z>  1.81 </z>
+    </location>
+    <static_friction>  4 </static_friction>
+    <dynamic_friction> 2.5 </dynamic_friction>
+    <spring_coeff unit="N/M">72000000</spring_coeff>
+    <damping_coeff unit="N/M/SEC">80000</damping_coeff>
+    <damping_coeff_rebound unit="N/M/SEC">72000000</damping_coeff_rebound>
+ </contact>
+<!--
+  <contact type="STRUCTURE" name="Wing Jack.l">
+    <location unit="M">
+     <x>  0 </x>
+     <y> -1.78 </y>
+     <z> -0.2 </z>
+    </location>
+    <static_friction>  4 </static_friction>
+    <dynamic_friction> 2.5 </dynamic_friction>
+    <spring_coeff unit="N/M">72000000</spring_coeff>
+    <damping_coeff unit="N/M/SEC">80000</damping_coeff>
+    <damping_coeff_rebound unit="N/M/SEC">72000000</damping_coeff_rebound>
+ </contact>
+ <contact type="STRUCTURE" name="Wing Jack.r">
+    <location unit="M">
+     <x>  0 </x>
+     <y>  1.78 </y>
+     <z> -0.2 </z>
+    </location>
+    <static_friction>  4 </static_friction>
+    <dynamic_friction> 2.5 </dynamic_friction>
+    <spring_coeff unit="N/M">72000000</spring_coeff>
+    <damping_coeff unit="N/M/SEC">80000</damping_coeff>
+    <damping_coeff_rebound unit="N/M/SEC">72000000</damping_coeff_rebound>
+ </contact>
+  -->
 <!--  <contact type="BOGEY" name="NOSE">
    <location unit="M">
      <x>  -19.630 </x>
@@ -612,7 +661,7 @@
   </channel>
 
   <channel name="Landing Gear">
-   <kinematic name="Gear Control">
+   <kinematic name="Main Gear Control">
      <input>gear/gear-cmd-norm</input>
      <traverse>
        <setting>
@@ -621,10 +670,29 @@
        </setting>
        <setting>
           <position> 1 </position>
-          <time>    19 </time>
+          <time>    16 </time>
        </setting>
      </traverse>
-     <output>gear/gear-pos-norm</output>
+     <output>gear/unit[0]/pos-norm</output>
+     <output>gear/unit[1]/pos-norm</output>
+     <output>gear/unit[2]/pos-norm</output>
+     <output>gear/unit[3]/pos-norm</output>
+   </kinematic>
+
+   <kinematic name="Nose Gear Control">
+     <input>gear/gear-cmd-norm</input>
+     <traverse>
+       <setting>
+          <position> 0 </position>
+          <time>     0 </time>
+       </setting>
+       <setting>
+          <position> 1 </position>
+          <time>    15 </time>
+       </setting>
+     </traverse>
+     <output>gear/unit[4]/pos-norm</output>
+     <output>gear/unit[5]/pos-norm</output>
    </kinematic>
   </channel>
 
@@ -731,7 +799,7 @@
            <property>aero/qbar-psf</property>
            <property>metrics/Sw-sqft</property>
            <property>fcs/flap-pos-deg</property>
-           <value> 0.0009 </value>
+           <value> 0.001 </value>
          </product>
     </function>
 
